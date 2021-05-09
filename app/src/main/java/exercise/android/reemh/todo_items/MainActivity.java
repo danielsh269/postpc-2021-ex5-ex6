@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     if (holder == null) {
       holder = new TodoItemsHolderImpl();
     }
+
+    EditText inputText = findViewById(R.id.editTextInsertTask);
+    FloatingActionButton addTaskButton = findViewById(R.id.buttonCreateTodoItem);
+    RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
+
+
 
     // TODO: implement the specs as defined below
     //    (find all UI components, hook them up, connect everything you need)
