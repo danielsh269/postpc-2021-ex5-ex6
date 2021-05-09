@@ -1,12 +1,13 @@
 package exercise.android.reemh.todo_items;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 
-public class TodoItemsHolderImpl implements TodoItemsHolder {
+public class TodoItemsHolderImpl implements TodoItemsHolder, Serializable {
   List<TodoItem> items;
 
   public TodoItemsHolderImpl()
@@ -66,7 +67,7 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
     public int compare(TodoItem o1, TodoItem o2) {
 
       if (o1.isDone() == o2.isDone())
-        return o1.getCreationTime().compareTo(o2.getCreationTime());
+        return (-1) * o1.getCreationTime().compareTo(o2.getCreationTime());
 
       if (o1.isDone())
         return 1;

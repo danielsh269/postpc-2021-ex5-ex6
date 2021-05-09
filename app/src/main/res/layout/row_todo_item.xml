@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="175dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="this is a demo task"
@@ -39,6 +39,7 @@
         />
 
     <TextView
+        android:id="@+id/dateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
