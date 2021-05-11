@@ -7,8 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import java.util.Timer;
-import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
 public class TodoItemsHolderImplTest{
@@ -75,19 +73,21 @@ public class TodoItemsHolderImplTest{
   }
 
   @Test
-  public void when_addingNewItem_then_checkItemAtTheTop(){
+  public void when_addingNewItem_then_checkItemAtTheTop() throws InterruptedException {
     // setup
     TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl();
     holderUnderTest.addNewInProgressItem("item1");
+    TimeUnit.SECONDS.sleep(1);
     holderUnderTest.addNewInProgressItem("item2");
 
     assertEquals("item2", holderUnderTest.getCurrentItems().get(0).getDescription());
   }
   @Test
-  public void when_markDoneItem_then_checkItemMoveDown(){
+  public void when_markDoneItem_then_checkItemMoveDown() throws InterruptedException {
     // setup
     TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl();
     holderUnderTest.addNewInProgressItem("item1");
+    TimeUnit.SECONDS.sleep(1);
     holderUnderTest.addNewInProgressItem("item2");
     holderUnderTest.markItemDone(holderUnderTest.getCurrentItems().get(0));
 
