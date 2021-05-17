@@ -7,14 +7,22 @@ public class TodoItem implements Serializable {
     private String description;
     private boolean status; // false = IN-PROGRESS, true = DONE
     private final Date creationTime;
+    private Date modifiedDate;
 
     public TodoItem(String desc)
     {
         this.description = desc;
         status = false;
         creationTime = new Date();
+        modifiedDate = creationTime;
     }
-
+    public TodoItem(String desc, Boolean status, Date creationTime, Date modifiedDate)
+    {
+        this.description = desc;
+        this.status = status;
+        this.creationTime = creationTime;
+        this.modifiedDate = modifiedDate;
+    }
     public String getDescription()
     {
         return this.description;
@@ -27,6 +35,8 @@ public class TodoItem implements Serializable {
     {
         return this.creationTime;
     }
+    public void setModifiedDate() { this.modifiedDate = new Date(); }
+    public Date getModifiedDate() { return this.modifiedDate; }
     public void setDone()
     {
         this.status = true;

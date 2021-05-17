@@ -15,6 +15,15 @@ public class TodoItemsHolderImpl implements TodoItemsHolder, Serializable {
     this.items = new ArrayList<>();
   }
 
+  public TodoItemsHolderImpl(List<TodoItem> items)
+  {
+    this.items = items;
+  }
+
+  public void setItem(TodoItem item) {
+    this.items.add(item);
+    Collections.sort(this.items, new itemComparator());
+  }
 
   @Override
   public List<TodoItem> getCurrentItems()
