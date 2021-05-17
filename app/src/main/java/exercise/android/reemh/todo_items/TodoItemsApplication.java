@@ -5,11 +5,6 @@ import android.app.Application;
 public class TodoItemsApplication extends Application {
 
     private LocalDataBase dataBase;
-    private static TodoItemsApplication instance = null;
-    public LocalDataBase getDataBase()
-    {
-        return dataBase;
-    }
 
     @Override
     public void onCreate() {
@@ -17,9 +12,16 @@ public class TodoItemsApplication extends Application {
         instance = this;
         dataBase = new LocalDataBase(this);
     }
+    private static TodoItemsApplication instance = null;
 
     public static TodoItemsApplication getInstance()
     {
         return instance;
+    }
+
+    public LocalDataBase getDataBase()
+    {
+        System.err.println("getDataBase called");
+        return dataBase;
     }
 }

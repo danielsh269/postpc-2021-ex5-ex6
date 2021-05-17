@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-  public TodoItemsHolder holder = null;
+  public TodoItemsApplication todoApp = TodoItemsApplication.getInstance();
+  public LocalDataBase dataBase = todoApp.getDataBase();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -26,44 +27,25 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     EditText inputText = findViewById(R.id.editTextInsertTask);
     inputText.setText("");
-    if (savedInstanceState != null)
-    {
-      String input = (String)savedInstanceState.getSerializable("user_input");
-      inputText.setText(input);
-      this.holder = (TodoItemsHolder)savedInstanceState.getSerializable("items_list");
-    }
-    if (holder == null) {
-      holder = new TodoItemsHolderImpl();
-    }
 
     FloatingActionButton addTaskButton = findViewById(R.id.buttonCreateTodoItem);
 
-
     RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
-    ItemAdapter adapter = new ItemAdapter(this.holder);
+    ItemAdapter adapter = new ItemAdapter(this.dataBase.getCopies());
     recyclerView.setAdapter(adapter);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
+    recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
 
-    addTaskButton.setOnClickListener(view->{
+    addTaskButton.setOnClickListener(view -> {
 
       String description = inputText.getText().toString();
 
-      if(!description.equals(""))
-      {
-        this.holder.addNewInProgressItem(description);
+      if (!description.equals("")) {
+        this.dataBase.addNewInProgressItem(description);
         inputText.setText("");
         adapter.notifyDataSetChanged();
       }
-      });
-  }
-
-  @Override
-  protected void onSaveInstanceState(@NonNull Bundle outState) {
-    super.onSaveInstanceState(outState);
-    EditText inputText = findViewById(R.id.editTextInsertTask);
-    outState.putSerializable("user_input", inputText.getText().toString());
-    outState.putSerializable("items_list", this.holder);
+    });
   }
 }
 
