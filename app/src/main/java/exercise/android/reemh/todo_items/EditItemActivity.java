@@ -44,10 +44,9 @@ public class EditItemActivity extends AppCompatActivity
             this.item = (TodoItem)savedInstanceState.getSerializable("saved_item");
         }
 
-
+        updateModifiedDate(this.item);
         description.setText(item.getDescription());
         creationDate.setText(item.getCreationTime().toString());
-        modifiedDate.setText(item.getModifiedDate().toString());
         isDone.setChecked(item.isDone());
 
         description.addTextChangedListener(new TextWatcher() {
@@ -65,7 +64,8 @@ public class EditItemActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {
                 db.deleteItem(item);
                 item.setDescription(s.toString());
-                updateModifiedDate();
+                item.setModifiedDate();
+                updateModifiedDate(item);
                 db.setItem(item);
             }
         });
@@ -84,15 +84,18 @@ public class EditItemActivity extends AppCompatActivity
             else
                 db.markItemInProgress(item);
 
+            item.setModifiedDate();
+            updateModifiedDate(item);
+
         });
 
     }
 
-    private void updateModifiedDate()
+    private void updateModifiedDate(TodoItem item)
     {
-        item.setModifiedDate();
-        Date newDate = item.getModifiedDate();
-        long diff = newDate.getTime() - item.getModifiedDate().getTime();
+
+        Date nowDate = new Date();
+        long diff = nowDate.getTime() - item.getModifiedDate().getTime();
         long minutes = (long)(diff/ (60000));
         long hours = (long)(minutes / 60);
 
@@ -101,9 +104,9 @@ public class EditItemActivity extends AppCompatActivity
         if (minutes < 60)
             modDate = minutes + " minutes ago";
         else if (hours < 24)
-            modDate = "Today at" + newDate.getHours() + ":" + newDate.getMinutes();
+            modDate = "Today at" + item.getModifiedDate().getHours() + ":" + item.getModifiedDate().getMinutes();
         else
-            modDate = newDate.getDate() + " at " + newDate.getHours() + ":" + newDate.getMinutes();
+            modDate = item.getModifiedDate().getDate() + " at " + item.getModifiedDate().getHours() + ":" + item.getModifiedDate().getMinutes();
 
         TextView modifiedDate = findViewById(R.id.modifiedDateView);
         modifiedDate.setText(modDate);

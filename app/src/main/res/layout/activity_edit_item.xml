@@ -51,11 +51,12 @@
         android:id="@+id/creationDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="16sp"
         android:layout_marginStart="5dp"
         android:text="creation date demo"
         app:layout_constraintStart_toEndOf="@id/creationTimeText"
         app:layout_constraintTop_toBottomOf="@id/doneText"
+        android:layout_marginTop="7dp"
         />
 
     <TextView
@@ -72,11 +73,12 @@
         android:id="@+id/modifiedDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="16sp"
         android:layout_marginStart="5dp"
         android:text="modified date demo"
         app:layout_constraintStart_toEndOf="@id/modTimeText"
         app:layout_constraintTop_toBottomOf="@id/creationTimeText"
+        android:layout_marginTop="7dp"
         />
 
 

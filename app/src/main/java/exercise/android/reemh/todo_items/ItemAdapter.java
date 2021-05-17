@@ -38,8 +38,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
         TodoItem item = this.db.getCopies().getCurrentItems().get(position);
         holder.desc.setText(item.getDescription());
         holder.checkBox.setChecked(item.isDone());
-//        holder.dateView.setText(item.getCreationTime().toString());
-        holder.dateView.setText("");
+        holder.dateView.setText(item.getCreationTime().toString());
+
 
         if (item.isDone())
             holder.desc.setPaintFlags(holder.desc.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
