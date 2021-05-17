@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton addTaskButton = findViewById(R.id.buttonCreateTodoItem);
 
     RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
-    ItemAdapter adapter = new ItemAdapter(this.dataBase.getCopies());
+    ItemAdapter adapter = new ItemAdapter(this.dataBase);
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 

@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
 {
-    TodoItemsHolder items;
+    LocalDataBase db;
 
 
-    public ItemAdapter(TodoItemsHolder holder){
-        this.items = holder;
+    public ItemAdapter(LocalDataBase db){
+        this.db = db;
     }
 
     @NonNull
@@ -32,7 +32,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 
-        TodoItem item = this.items.getCurrentItems().get(position);
+        TodoItem item = this.db.getCopies().getCurrentItems().get(position);
         holder.desc.setText(item.getDescription());
         holder.checkBox.setChecked(item.isDone());
         holder.dateView.setText(item.getCreationTime().toString());
@@ -43,15 +43,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
             holder.desc.setPaintFlags(0);
 
         holder.deleteButton.setOnClickListener(view->{
-            this.items.deleteItem(item);
+            this.db.deleteItem(item);
             notifyDataSetChanged();
         });
 
         holder.checkBox.setOnClickListener(view->{
             if (!item.isDone())
-                this.items.markItemDone(item);
+                this.db.markItemDone(item);
             else
-                this.items.markItemInProgress(item);
+                this.db.markItemInProgress(item);
 
             notifyDataSetChanged();
         });
@@ -60,7 +60,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
 
     @Override
     public int getItemCount() {
-        return this.items.getCurrentItems().size();
+        return this.db.getCopies().getCurrentItems().size();
     }
 }
 

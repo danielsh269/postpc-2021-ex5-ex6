@@ -21,7 +21,6 @@ public class TodoItemsApplication extends Application {
 
     public LocalDataBase getDataBase()
     {
-        System.err.println("getDataBase called");
         return dataBase;
     }
 }

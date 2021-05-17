@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,8 +114,8 @@ public class LocalDataBase {
             String[] split = string.split("#");
             String desc = split[0];
             Boolean status = Boolean.parseBoolean(split[1]);
-            Date creationTime = new SimpleDateFormat("dd/MM/yyyy").parse(split[2]);
-            Date modifiedTime = new SimpleDateFormat("dd/MM/yyyy").parse(split[3]);
+            Date creationTime = new Date(split[2]);
+            Date modifiedTime = new Date(split[3]);
             return new TodoItem(desc, status, creationTime, modifiedTime);
         }
         catch (Exception e)
