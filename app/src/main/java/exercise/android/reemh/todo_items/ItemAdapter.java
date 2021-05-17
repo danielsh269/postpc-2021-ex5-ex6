@@ -1,6 +1,7 @@
 package exercise.android.reemh.todo_items;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
 {
     LocalDataBase db;
+    Context context;
 
-
-    public ItemAdapter(LocalDataBase db){
+    public ItemAdapter(Context context, LocalDataBase db)
+    {
+        this.context = context;
         this.db = db;
     }
 
@@ -56,6 +59,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
             notifyDataSetChanged();
         });
 
+        holder.editButton.setOnClickListener(view->{
+            Intent editIntent = new Intent(this.context, EditItemActivity.class);
+            editIntent.putExtra("item_to_edit", item);
+            this.context.startActivity(editIntent);
+        });
+
     }
 
     @Override
@@ -68,7 +77,7 @@ class ItemHolder extends RecyclerView.ViewHolder
 {
 
     TextView desc, dateView;
-    ImageButton deleteButton;
+    ImageButton deleteButton, editButton;
     CheckBox checkBox;
 
     public ItemHolder(@NonNull View itemView) {
@@ -77,5 +86,6 @@ class ItemHolder extends RecyclerView.ViewHolder
         this.deleteButton = itemView.findViewById(R.id.deleteButton);
         this.checkBox = itemView.findViewById(R.id.doneCheckBox);
         this.dateView = itemView.findViewById(R.id.dateView);
+        this.editButton = itemView.findViewById(R.id.editButton);
     }
 }
