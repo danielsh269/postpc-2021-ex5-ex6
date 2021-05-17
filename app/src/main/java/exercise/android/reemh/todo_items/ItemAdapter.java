@@ -38,7 +38,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
         TodoItem item = this.db.getCopies().getCurrentItems().get(position);
         holder.desc.setText(item.getDescription());
         holder.checkBox.setChecked(item.isDone());
-        holder.dateView.setText(item.getCreationTime().toString());
+//        holder.dateView.setText(item.getCreationTime().toString());
+        holder.dateView.setText("");
 
         if (item.isDone())
             holder.desc.setPaintFlags(holder.desc.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -62,6 +63,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemHolder>
         holder.editButton.setOnClickListener(view->{
             Intent editIntent = new Intent(this.context, EditItemActivity.class);
             editIntent.putExtra("item_to_edit", item);
+            db.deleteItem(item);
             this.context.startActivity(editIntent);
         });
 

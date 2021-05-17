@@ -50,7 +50,7 @@ public class LocalDataBase {
 
     public TodoItemsHolderImpl getCopies()
     {
-        return new TodoItemsHolderImpl(this.itemsHolder.getCurrentItems());
+        return this.itemsHolder;
     }
 
     public void markItemDone(TodoItem item)
@@ -64,7 +64,18 @@ public class LocalDataBase {
 
         this.itemsLiveDataMutable.setValue(new TodoItemsHolderImpl(this.itemsHolder.getCurrentItems()));
     }
+    public void setItem(TodoItem item)
+    {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(itemToString(item));
+        editor.apply();
+        this.itemsHolder.setItem(item);
+        editor.putString(itemToString(item), itemToString(item));
+        editor.apply();
 
+        this.itemsLiveDataMutable.setValue(new TodoItemsHolderImpl(this.itemsHolder.getCurrentItems()));
+
+    }
     public void markItemInProgress(TodoItem item)
     {
         SharedPreferences.Editor editor = sp.edit();
